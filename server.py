@@ -7,14 +7,14 @@ port = int(os.environ.get('PORT', 5000))
 music_queue = list()
 
 def new_client(client, server):
-    print("Client(%d) has joined." % client['id'])
+    print("Client has joined.")
     send_msg = dict
     send_msg['type'] = "playlist"
     send_msg['data'] = music_queue
     server.send_message(json.dumps(send_msg))
 
 def client_left(client, server):
-    print("Client(%d) disconnected" % client['id'])
+    print("Client disconnected")
 
 
 def message_back(client, server, message):
