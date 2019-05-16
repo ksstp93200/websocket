@@ -20,16 +20,16 @@ def client_left(client, server):
 def message_back(client, server, message):
     send_msg = dict()
     rcv = json.loads(message)
-    if(rcv.cmd == "stop"):
+    if(rcv["type"] == "stop"):
         send_msg['type'] = "stop"
         server.send_message_to_all(json.dumps(send_msg))
-    if(rcv.cmd == "play"):
+    if(rcv["type"] == "play"):
         send_msg['type'] = "play"
         server.send_message_to_all(json.dumps(send_msg))
-    if(rcv.cmd == 'url'):
+    if(rcv["type"] == 'url'):
         music_queue.append(message)
         send_msg['type'] = "add"
-        send_msg['data'] = rcv.data
+        send_msg['data'] = rcv["data"]
         server.send_message_to_all(json.dumps(send_msg))
 
 
