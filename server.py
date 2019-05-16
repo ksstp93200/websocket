@@ -27,7 +27,7 @@ def message_back(client, server, message):
         send_msg['type'] = "play"
         server.send_message_to_all(json.dumps(send_msg))
     if(rcv["type"] == 'url'):
-        music_queue.append(message)
+        music_queue.append(rcv["data"])
         send_msg['type'] = "add"
         send_msg['data'] = rcv["data"]
         server.send_message_to_all(json.dumps(send_msg))
