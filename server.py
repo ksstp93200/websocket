@@ -8,8 +8,8 @@ music_queue = list()
 
 def new_client(client, server):
     print("Client has joined.")
-    send_msg = dict
-    send_msg['cmd'] = "playlist"
+    send_msg = dict()
+    send_msg['type'] = "playlist"
     send_msg['data'] = music_queue
     server.send_message(json.dumps(send_msg))
 
@@ -18,17 +18,17 @@ def client_left(client, server):
 
 
 def message_back(client, server, message):
-    send_msg = dict
+    send_msg = dict()
     rcv = json.loads(message)
     if(rcv.cmd == "stop"):
-        send_msg['cmd'] = "stop"
+        send_msg['type'] = "stop"
         server.send_message_to_all(json.dumps(send_msg))
     if(rcv.cmd == "play"):
-        send_msg['cmd'] = "play"
+        send_msg['type'] = "play"
         server.send_message_to_all(json.dumps(send_msg))
     if(rcv.cmd == 'url'):
         music_queue.append(message)
-        send_msg['cmd'] = "add"
+        send_msg['type'] = "add"
         send_msg['data'] = rcv.data
         server.send_message_to_all(json.dumps(send_msg))
 
