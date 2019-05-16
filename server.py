@@ -11,7 +11,7 @@ def new_client(client, server):
     send_msg = dict()
     send_msg['type'] = "playlist"
     send_msg['data'] = music_queue
-    server.send_message(json.dumps(send_msg))
+    server.send_message(client, json.dumps(send_msg))
 
 def client_left(client, server):
     print("Client disconnected")
