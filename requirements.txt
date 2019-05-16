@@ -1,0 +1,3 @@
+certifi==2019.3.9
+websocket-server==0.4
+wincertstore==0.2
