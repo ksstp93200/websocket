@@ -18,6 +18,7 @@ music_queue = list()
 time_queue = list()
 
 def updatequeue(ptime, ctime):
+    global status
     pastsec = int(ctime - ptime)
     if pastsec >= remaintime:
         pastsec -= remaintime
@@ -41,6 +42,7 @@ def updatequeue(ptime, ctime):
         return remaintime - pastsec
 
 def new_client(client, server):
+    global status
     print("Client has joined.")
     send_msg = dict()
     mutex.acquire()
@@ -69,6 +71,7 @@ def client_left(client, server):
 
 
 def message_back(client, server, message):
+    global status
     send_msg = dict()
     rcv = json.loads(message)
     if(rcv["type"] == "stop" and status):
