@@ -64,7 +64,8 @@ def new_client(client, server):
             send_msg['status'] = True
     elif(len(music_queue) > 0):
         send_msg['data'] = copy.copy(music_queue)
-        send_msg['time'] = copy.copy(time_queue[0] - remaintime)
+        if remaintime != None:
+            send_msg['time'] = copy.copy(time_queue[0] - remaintime)
         send_msg['status'] = False
     else:
         send_msg['data'] = []
@@ -102,7 +103,7 @@ def message_back(client, server, message):
         mutex.acquire()
         music_queue.append(rcv["data"])
         mutex.release()
-        time_queue.append(rcv["time"])
+        time_queue.append(int(rcv["time"]))
         send_msg['type'] = "add"
         send_msg['data'] = rcv["data"]
         server.send_message_to_all(json.dumps(send_msg))
