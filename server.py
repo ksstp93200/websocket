@@ -58,9 +58,12 @@ def new_client(client, server):
             send_msg['data'] = copy.copy(music_queue)
             send_msg['time'] = copy.copy(time_queue[0] - remaintime)
             send_msg['status'] = True
-    else:
+    elif(len(music_queue) > 0):
         send_msg['data'] = copy.copy(music_queue)
         send_msg['time'] = copy.copy(time_queue[0] - remaintime)
+        send_msg['status'] = False
+    else:
+        send_msg['data'] = []
         send_msg['status'] = False
     mutex.release()
     send_msg['type'] = "playlist"
