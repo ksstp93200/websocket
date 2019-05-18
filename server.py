@@ -21,6 +21,8 @@ def updatequeue(ptime, ctime):
     global status
     global playtime
     global remaintime
+    global music_queue
+    global time_queue
     print(ptime)
     pastsec = int(ctime - ptime)
     if remaintime == None:
@@ -103,6 +105,8 @@ def message_back(client, server, message):
         status = False
         currenttime = time.time()
         remaintime = updatequeue(playtime, currenttime)
+        if remaintime == -1:
+            remaintime = None
         mutex.release()
         send_msg['type'] = "stop"
         server.send_message_to_all(json.dumps(send_msg))
@@ -115,6 +119,14 @@ def message_back(client, server, message):
         server.send_message_to_all(json.dumps(send_msg))
     if(rcv["type"] == 'url'):
         mutex.acquire()
+        if(status)
+            currenttime = time.time()
+            remaintime = updatequeue(playtime, currenttime)
+            if remaintime == -1:
+                remaintime = None
+            else:
+                print("update time")
+                playtime = currenttime
         music_queue.append(rcv["data"])
         mutex.release()
         time_queue.append(int(rcv["time"]))
