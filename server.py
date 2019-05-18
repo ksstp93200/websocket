@@ -22,7 +22,19 @@ def updatequeue(ptime, ctime):
     global playtime
     global remaintime
     pastsec = int(ctime - ptime)
-    if pastsec >= remaintime:
+    if remaintime == None:
+        for i in range(len(music_queue)):
+            if pastsec >= time_queue[0]:
+                pastsec -= time_queue[0]
+                try:
+                    music_queue.pop(0)
+                    time_queue.pop(0)
+                except:
+                    return -1
+            else:
+                return time_queue[0] - pastsec
+        return -1
+    elif pastsec >= remaintime:
         pastsec -= remaintime
         try:
             music_queue.pop(0)
