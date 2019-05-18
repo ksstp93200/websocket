@@ -119,7 +119,7 @@ def message_back(client, server, message):
         server.send_message_to_all(json.dumps(send_msg))
     if(rcv["type"] == 'url'):
         mutex.acquire()
-        if(status)
+        if(status):
             currenttime = time.time()
             remaintime = updatequeue(playtime, currenttime)
             if remaintime == -1:
