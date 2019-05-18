@@ -38,6 +38,7 @@ def updatequeue(ptime, ctime):
                 return time_queue[0] - pastsec
         return -1
     elif pastsec >= remaintime:
+        print(">")
         pastsec -= remaintime
         try:
             music_queue.pop(0)
@@ -69,6 +70,7 @@ def new_client(client, server):
         currenttime = time.time()
         remaintime = updatequeue(playtime, currenttime)
         if remaintime == -1:
+            remaintime = None
             send_msg['data'] = []
             send_msg['status'] = False
             status = False
