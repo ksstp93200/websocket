@@ -70,6 +70,7 @@ def new_client(client, server):
             send_msg['status'] = False
             status = False
         else:
+            print("update time")
             playtime = currenttime
             send_msg['data'] = copy.copy(music_queue)
             send_msg['time'] = copy.copy(time_queue[0] - remaintime)
