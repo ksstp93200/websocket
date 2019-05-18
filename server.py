@@ -21,6 +21,7 @@ def updatequeue(ptime, ctime):
     global status
     global playtime
     global remaintime
+    print(ptime)
     pastsec = int(ctime - ptime)
     if remaintime == None:
         for i in range(len(music_queue)):
