@@ -99,7 +99,10 @@ def message_back(client, server, message):
     global playtime
     global remaintime
     send_msg = dict()
-    rcv = json.loads(message)
+    try:
+        rcv = json.loads(message)
+    except:
+        return
     if(rcv["type"] == "stop" and status):
         mutex.acquire()
         status = False
