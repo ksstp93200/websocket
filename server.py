@@ -113,6 +113,17 @@ def message_back(client, server, message):
         mutex.release()
         send_msg['type'] = "stop"
         server.send_message_to_all(json.dumps(send_msg))
+    if(rcv["type"] == "skip" and len(music_queue) > 0):
+        mutex.acquire()
+        playtime = time.time()
+        remaintime = None
+        music_queue.pop(0)
+        time_queue.pop(0)
+        if len(music_queue) <= 0:
+            status = False
+        mutex.release()
+        send_msg['type'] = "skip"
+        server.send_message_to_all(json.dumps(send_msg))
     if(rcv["type"] == "play" and not status and len(music_queue) > 0):
         status = True
         mutex.acquire()
