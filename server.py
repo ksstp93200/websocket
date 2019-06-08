@@ -44,6 +44,7 @@ def updatequeue(ptime, ctime):
         try:
             music_queue.pop(0)
             time_queue.pop(0)
+            title_queue.pop(0)
         except:
             return -1
         for i in range(len(music_queue)):
@@ -85,6 +86,7 @@ def new_client(client, server):
             send_msg['time'] = copy.copy(time_queue[0] - remaintime)
             send_msg['status'] = True
     elif(len(music_queue) > 0):
+        print("ok")
         send_msg['data'] = copy.copy(music_queue)
         send_msg['title'] = copy.copy(title_queue)
         if remaintime != None:
@@ -152,6 +154,7 @@ def message_back(client, server, message):
                 playtime = currenttime
         music_queue.append(rcv["data"])
         title_queue.append(rcv["title"])
+        print(rcv["title"])
         mutex.release()
         time_queue.append(int(rcv["time"]))
         send_msg['type'] = "add"
