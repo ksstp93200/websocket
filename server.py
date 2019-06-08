@@ -16,6 +16,7 @@ port = int(os.environ.get('PORT', 5000))
 
 music_queue = list()
 time_queue = list()
+title_queue = list()
 
 def updatequeue(ptime, ctime):
     global status
@@ -30,6 +31,7 @@ def updatequeue(ptime, ctime):
                 pastsec -= time_queue[0]
                 try:
                     music_queue.pop(0)
+                    title_queue.pop(0)
                     time_queue.pop(0)
                 except:
                     return -1
@@ -48,6 +50,7 @@ def updatequeue(ptime, ctime):
                 pastsec -= time_queue[0]
                 try:
                     music_queue.pop(0)
+                    title_queue.pop(0)
                     time_queue.pop(0)
                 except:
                     return -1
@@ -70,21 +73,25 @@ def new_client(client, server):
         if remaintime == -1:
             remaintime = None
             send_msg['data'] = []
+            send_msg['title'] = []
             send_msg['status'] = False
             status = False
         else:
             print("update time")
             playtime = currenttime
             send_msg['data'] = copy.copy(music_queue)
+            send_msg['title'] = copy.copy(title_queue)
             send_msg['time'] = copy.copy(time_queue[0] - remaintime)
             send_msg['status'] = True
     elif(len(music_queue) > 0):
         send_msg['data'] = copy.copy(music_queue)
+        send_msg['title'] = copy.copy(title_queue)
         if remaintime != None:
             send_msg['time'] = copy.copy(time_queue[0] - remaintime)
         send_msg['status'] = False
     else:
         send_msg['data'] = []
+        send_msg['title'] = []
         send_msg['status'] = False
     mutex.release()
     send_msg['type'] = "playlist"
@@ -118,6 +125,7 @@ def message_back(client, server, message):
         playtime = time.time()
         remaintime = None
         music_queue.pop(0)
+        title_queue.pop(0)
         time_queue.pop(0)
         if len(music_queue) <= 0:
             status = False
@@ -142,10 +150,12 @@ def message_back(client, server, message):
                 print("update time")
                 playtime = currenttime
         music_queue.append(rcv["data"])
+        title_queue.append(rcv["title"])
         mutex.release()
         time_queue.append(int(rcv["time"]))
         send_msg['type'] = "add"
         send_msg['data'] = rcv["data"]
+        send_msg['title'] = rcv["title"]
         server.send_message_to_all(json.dumps(send_msg))
 
 
