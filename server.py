@@ -115,6 +115,7 @@ def message_back(client, server, message):
         rcv = json.loads(message)
     except:
         return
+    print(rcv)
     if(rcv["type"] == "stop" and status):
         mutex.acquire()
         status = False
