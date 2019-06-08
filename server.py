@@ -98,6 +98,8 @@ def new_client(client, server):
         send_msg['status'] = False
     mutex.release()
     send_msg['type'] = "playlist"
+    print(music_queue)
+    print(title_queue)
     server.send_message(client, json.dumps(send_msg))
 
 def client_left(client, server):
